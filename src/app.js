@@ -60,7 +60,7 @@ app.post("/auth", async (req,res) => {
     let compareHash = bcrypt.compareSync(password, user.password);
 
     if(compareHash && email == user.email){
-        jwt.sign({email},JWTSecret,{expiresIn: "48h"}, (err, token) => {
+        jwt.sign({email,name: user.name,id: user._id},JWTSecret,{expiresIn: "48h"}, (err, token) => {
             if(err){
                 res.status(500);
                 console.log(err);
