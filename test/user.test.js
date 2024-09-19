@@ -62,3 +62,28 @@ describe("User Register", () => {
         }).catch(err => console.log(err));
     });
 })
+
+describe("Authentication", () => {
+
+    it("Should return a json token when login", () => {
+        return request.post("/auth").send({email: tempUser.email, password: tempUser.password}).then(res => {
+
+            expect(res.statusCode).toEqual(200);
+            expect(res.body.token).toBeDefined();
+
+        }).catch(err => console.log(err));
+    });
+
+    it("Shouldn't allow user to login with email or password incorrect", () => {
+
+        let incorrectUser = {email: "Brun@mail.com", password: "123"};
+
+        return request.post("/auth").send({email: incorrectUser.email, password: incorrectUser.password}).then(res => {
+
+            expect(res.statusCode).toEqual(400);
+            expect(res.body.err).toEqual("Email or Password Incorrect");
+
+        }).catch(err => console.log(err));
+    });
+    
+})
