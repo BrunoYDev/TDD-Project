@@ -17,7 +17,7 @@ describe("User Register", () => {
         }).catch(err => console.log(err));
     });
 
-    it("Should doesn't allow to register user with empty fields", () => {
+    it("Shouldn't allow to register user with empty fields", () => {
 
         let user = {name: "", email: "", password: ""};
 
@@ -29,7 +29,7 @@ describe("User Register", () => {
         }).catch(err => console.log(err));
     });
 
-    it("Should doesn't allow to register user with existing email", () => {
+    it("Shouldn't allow to register user with existing email", () => {
 
         let time = Date.now();
         let email = `${time}@mail.com`;
