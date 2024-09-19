@@ -10,7 +10,7 @@ let JWTSecret = "jdasklçdjaklsçjdaklsjdpioasaspaskldjalskjdasklçfhjasdkljfkla
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/imagesharer").catch(err => console.error(err));
+mongoose.connect("mongodb://localhost:27017/{Your mongoDB Database}").catch(err => console.error(err));
 
 let User = mongoose.model("User",user);
 
