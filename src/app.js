@@ -3,6 +3,7 @@ let app = express();
 let bcrypt = require("bcrypt");
 let mongoose = require("mongoose");
 let user = require("../models/User");
+let jwt = require("jsonwebtoken");
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -43,6 +44,11 @@ app.post("/user", async (req,res) => {
         res.status(500);
         console.error(error);
     }
+});
+
+app.delete("/user/:email", async (req,res) => {
+    await User.findOneAndDelete({"email": req.params.email});
+    res.status(204);
 });
 
 module.exports = app;

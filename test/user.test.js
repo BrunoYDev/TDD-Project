@@ -2,6 +2,18 @@ let app = require("../src/app");
 let supertest = require("supertest");
 let request = supertest(app);
 
+let tempUser = {name: "Bruno Garcia", email: "bruno@mail.com", password: "123456"};
+
+beforeAll(() => {
+    // insert temp user
+    request.post("/user").send(tempUser).then(res => {}).catch(err => console.log(err));
+});
+
+afterAll(() => {
+    // remove temp user
+    request.delete(`/user/${tempUser.email}`).then(res => {}).catch(err => console.log(err));
+})
+
 describe("User Register", () => {
     it("Should register an user successfuly", () => {
 
