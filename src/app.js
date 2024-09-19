@@ -1,5 +1,6 @@
 let express = require("express");
 let app = express();
+let bcrypt = require("bcrypt");
 let mongoose = require("mongoose");
 let user = require("../models/User");
 
@@ -33,7 +34,9 @@ app.post("/user", async (req,res) => {
             return;
         }
 
-        let newUser = new User({name: req.body.name, email: req.body.email, password: req.body.password});
+        let hash = bcrypt.hashSync(password, 10);
+
+        let newUser = new User({name: name, email: email, password: hash});
         await newUser.save();
         res.status(200).json({email: req.body.email});
     } catch (error) {
