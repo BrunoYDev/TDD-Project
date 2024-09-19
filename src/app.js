@@ -17,7 +17,22 @@ app.get("/", (req,res)=>{
 
 app.post("/user", async (req,res) => {
 
+    let {name, email, password} = req.body;
+
+    if(name == "" || email == "" || password == ""){
+        res.status(400).json({err: "Please fill all fields"});
+        return;
+    }
+    
+
     try {
+        let user = await User.findOne({"email": req.body.email});
+
+        if(user != undefined){
+            res.status(400).json({err: "Email already registered"});
+            return;
+        }
+
         let newUser = new User({name: req.body.name, email: req.body.email, password: req.body.password});
         await newUser.save();
         res.status(200).json({email: req.body.email});
